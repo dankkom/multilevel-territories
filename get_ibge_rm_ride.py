@@ -1,9 +1,11 @@
+import os
 import pathlib
 import shutil
 import urllib.request as request
 from contextlib import closing
 from itertools import islice, repeat
 
+import dotenv
 import pandas as pd
 
 RM_RIDE_URL = (
@@ -14,8 +16,20 @@ RM_RIDE_URL = (
     "/Situacao_2020a2029"
     "/Composicao_RMs_RIDEs_AglomUrbanas_2020_12_31.xlsx"
 )
-RM_RIDE_XLSX_PATH = pathlib.Path("data-downloaded", "IBGE_RM_RIDE.xlsx")
-RM_RIDE_CSV_PATH = pathlib.Path("data-output", "ibge_rm_ride.csv")
+
+dotenv.load_dotenv()
+
+# PATHS
+DATADIR_DOWNLOADED = pathlib.Path(os.getenv("DATADIR_DOWNLOADED"))
+if not DATADIR_DOWNLOADED.exists():
+    DATADIR_DOWNLOADED.mkdir(parents=True)
+
+DATADIR_OUTPUT = pathlib.Path(os.getenv("DATADIR_OUTPUT"))
+if not DATADIR_OUTPUT.exists():
+    DATADIR_OUTPUT.mkdir(parents=True)
+
+RM_RIDE_XLSX_PATH = DATADIR_DOWNLOADED / "IBGE_RM_RIDE.xlsx"
+RM_RIDE_CSV_PATH = DATADIR_OUTPUT / "ibge_rm_ride.csv"
 
 
 def download_rm_ride():

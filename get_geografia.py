@@ -1,14 +1,30 @@
 import json
+import os
 import pathlib
 
 import pandas as pd
 import requests
+import dotenv
 
 URL_LOCALITIES = "https://servicodados.ibge.gov.br/api/v1/localidades"
-MUNICIPALITIES_PATH = pathlib.Path("data-downloaded", "municipalities.json")
-COUNTRIES_PATH = pathlib.Path("data-downloaded", "countries.json")
-RM_RIDE_CSV_PATH = pathlib.Path("data-output", "ibge_rm_ride.csv")
-GEO_DEST_PATH = pathlib.Path("data-output", "d_geografia.csv")
+
+dotenv.load_dotenv()
+
+# PATHS
+DATADIR_DOWNLOADED = pathlib.Path(os.getenv("DATADIR_DOWNLOADED"))
+if not DATADIR_DOWNLOADED.exists():
+    DATADIR_DOWNLOADED.mkdir(parents=True)
+
+DATADIR_OUTPUT = pathlib.Path(os.getenv("DATADIR_OUTPUT"))
+if not DATADIR_OUTPUT.exists():
+    DATADIR_OUTPUT.mkdir(parents=True)
+
+MUNICIPALITIES_PATH = DATADIR_DOWNLOADED / "municipalities.json"
+COUNTRIES_PATH = DATADIR_DOWNLOADED / "countries.json"
+
+RM_RIDE_CSV_PATH = DATADIR_OUTPUT / "ibge_rm_ride.csv"
+GEO_DEST_PATH = DATADIR_OUTPUT / "d_geografia.csv"
+
 RM_CODE_MULTIPLIER_FACTOR = 10_000
 
 
