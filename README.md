@@ -22,3 +22,26 @@ Exceto pelas RMs e Países, os códigos originais foram mantidos.
 Os códigos das RMs, para evitar colisão com os códigos das mesorregiões, foram multiplicados por 10.000.
 
 Os códigos M49 dos Países, para evitar colisão com os códigos do IBGE, foram multiplicados por -1.
+
+
+## Como usar:
+
+Instalar as dependências:
+
+```sh
+pipenv install
+```
+
+Executar script `get_ibge_rm_ride.py` para baixar os dados de Regiões Metropolitanas do IBGE.
+
+```sh
+pipenv run python get_ibge_rm_ride.py
+```
+
+Executar script `get_geografia.py` para baixar dados de municípios e países do IBGE e montar a tabela final com os dados, gravando no arquivo `data-output/d_geografia.csv`.
+
+```sh
+pipenv run python get_geografia.py
+```
+
+Importar os dados do arquivo `data-output/d_geografia.csv` para um banco de dados.
